@@ -1,0 +1,21 @@
+<h1>Algorithms</h1>
+<p>Sorting, searching, pathfinding, dynamic programming, and more.</p>
+
+<list-filter
+  searchPlaceholder="Search algorithms"
+  [filterGroups]="filterGroups"
+  [total]="algorithms.length"
+  [filtered]="filtered().length"
+  (searchChange)="onSearchChange($event)"
+  (filterChange)="onFilterChange($event)"
+/>
+
+@if (filtered().length === 0) {
+  <p class="empty">No algorithms match your search.</p>
+} @else {
+  <card-grid>
+    @for (algo of filtered(); track algo.id) {
+      <algorithm-card [algorithm]="algo" />
+    }
+  </card-grid>
+}

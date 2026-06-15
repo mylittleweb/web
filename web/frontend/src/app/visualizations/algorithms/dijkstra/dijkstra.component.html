@@ -1,0 +1,61 @@
+<p>
+  <a routerLink="/visualizations/algorithms">← Algorithms</a>
+</p>
+
+<h1>Dijkstra</h1>
+<p>Single-source shortest paths on a weighted graph with non-negative edges.
+  Pop the unsettled node with the smallest known distance, settle it, and relax each outgoing edge.</p>
+
+<div class="legend">
+  <span class="swatch source"></span>Source
+  <span class="swatch settled"></span>Settled
+  <span class="swatch active"></span>Just popped
+  <span class="swatch frontier"></span>In frontier
+  <span class="swatch examining"></span>Edge under examination
+  <span class="swatch improved"></span>Path improved
+</div>
+
+<div class="pq" aria-label="Priority queue (min-heap), sorted view">
+  <span class="pq-title">Priority queue</span>
+  @if (pq().length === 0) {
+    <span class="pq-empty">empty</span>
+  }
+  @for (entry of pq(); track $index) {
+    <span class="pq-entry" [class]="entry.cssClass">
+      {{ entry.node }}:{{ entry.distance }}
+    </span>
+  }
+</div>
+
+<svg class="graph" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet">
+  @for (edge of edges(); track edge.id) {
+    <g class="edge" [attr.data-class]="edge.cssClass">
+      <line
+        [attr.x1]="edge.x1" [attr.y1]="edge.y1"
+        [attr.x2]="edge.x2" [attr.y2]="edge.y2"
+        [attr.class]="'edge-line ' + edge.cssClass"
+      />
+      <text
+        [attr.x]="edge.labelX" [attr.y]="edge.labelY"
+        text-anchor="middle" class="edge-label"
+      >{{ edge.weight }}</text>
+    </g>
+  }
+
+  @for (node of nodes(); track node.id) {
+    <g [attr.transform]="'translate(' + node.x + ',' + node.y + ')'">
+      <circle r="22" [attr.class]="'node ' + node.cssClass"></circle>
+      <text text-anchor="middle" dominant-baseline="central" class="node-label">
+        {{ node.id }}
+      </text>
+      <text
+        x="0" y="38" text-anchor="middle"
+        class="node-distance"
+      >{{ node.distanceLabel }}</text>
+    </g>
+  }
+</svg>
+
+<playback-controls [controller]="playback" />
+
+<p class="description">{{ description() }}</p>

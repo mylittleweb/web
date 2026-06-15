@@ -1,0 +1,23 @@
+@if (loaded(); as cmp) {
+  <ng-container *ngComponentOutlet="cmp"></ng-container>
+} @else if (algorithm(); as algo) {
+  <p>
+    <a routerLink="/visualizations/algorithms">← Algorithms</a>
+  </p>
+  <h1>{{ algo.name }}</h1>
+  <p>{{ algo.summary }}</p>
+  <p>
+    <strong>Time:</strong> {{ algo.complexity.time }} ·
+    <strong>Space:</strong> {{ algo.complexity.space }}
+    @if (algo.paradigm) {
+      · <strong>Paradigm:</strong> {{ algo.paradigm }}
+    }
+  </p>
+  <p><em>Visualization coming soon.</em></p>
+} @else {
+  <p>
+    <a routerLink="/visualizations/algorithms">← Algorithms</a>
+  </p>
+  <h1>Not found</h1>
+  <p>No algorithm with id "{{ id() }}".</p>
+}

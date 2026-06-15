@@ -1,0 +1,13 @@
+@if (title || description) {
+  <header class="card-grid-header">
+    @if (title) {
+      <h1>{{ title }}</h1>
+    }
+    @if (description) {
+      <p class="card-grid-description">{{ description }}</p>
+    }
+  </header>
+}
+<div class="card-grid">
+  <ng-content></ng-content>
+</div>

@@ -1,0 +1,8 @@
+<app-navigation
+  [user]="user"
+  (profileClick)="onProfileClick()"
+  (settingsClick)="onSettingsClick()"
+  (signOut)="onSignOut()"
+>
+  <router-outlet></router-outlet>
+</app-navigation>

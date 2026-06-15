@@ -1,0 +1,21 @@
+<h1>Data Structures</h1>
+<p>Linked lists, trees, graphs, heaps, hash tables, and more.</p>
+
+<list-filter
+  searchPlaceholder="Search data structures"
+  [filterGroups]="filterGroups"
+  [total]="dataStructures.length"
+  [filtered]="filtered().length"
+  (searchChange)="onSearchChange($event)"
+  (filterChange)="onFilterChange($event)"
+/>
+
+@if (filtered().length === 0) {
+  <p class="empty">No data structures match your search.</p>
+} @else {
+  <card-grid>
+    @for (ds of filtered(); track ds.id) {
+      <data-structure-card [dataStructure]="ds" />
+    }
+  </card-grid>
+}

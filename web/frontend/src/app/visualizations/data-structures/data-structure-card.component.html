@@ -1,0 +1,16 @@
+<a
+  class="data-structure-card-link"
+  [routerLink]="['/visualizations/data-structures', dataStructure.id]"
+>
+  <mat-card class="data-structure-card">
+    <mat-card-header>
+      <mat-card-title>{{ dataStructure.name }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="summary">{{ dataStructure.summary }}</p>
+      <mat-chip-set>
+        <mat-chip>{{ dataStructure.category }}</mat-chip>
+      </mat-chip-set>
+    </mat-card-content>
+  </mat-card>
+</a>

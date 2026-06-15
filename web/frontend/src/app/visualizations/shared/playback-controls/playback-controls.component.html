@@ -1,0 +1,52 @@
+<div class="controls">
+  <button
+    type="button"
+    mat-icon-button
+    aria-label="Step backward"
+    [disabled]="controller.stepIndex() <= 0"
+    (click)="controller.stepBackward()"
+  >
+    <mat-icon>skip_previous</mat-icon>
+  </button>
+
+  <button
+    type="button"
+    mat-icon-button
+    [attr.aria-label]="controller.playing() ? 'Pause' : 'Play'"
+    [disabled]="atEnd && !controller.playing()"
+    (click)="controller.togglePlay()"
+  >
+    <mat-icon>{{ controller.playing() ? 'pause' : 'play_arrow' }}</mat-icon>
+  </button>
+
+  <button
+    type="button"
+    mat-icon-button
+    aria-label="Step forward"
+    [disabled]="!canStepForward"
+    (click)="controller.stepForward()"
+  >
+    <mat-icon>skip_next</mat-icon>
+  </button>
+
+  <button
+    type="button"
+    mat-icon-button
+    aria-label="Reset"
+    (click)="controller.reset()"
+  >
+    <mat-icon>restart_alt</mat-icon>
+  </button>
+
+  <span class="step-count">
+    Step {{ controller.stepIndex() + 1 }} of {{ controller.availableSteps() }}
+  </span>
+
+  <label class="speed">
+    <span class="speed-label">Speed</span>
+    <mat-slider min="0.25" max="4" step="0.25" [discrete]="true">
+      <input matSliderThumb [value]="controller.speed()" (input)="onSpeedInput($event)" />
+    </mat-slider>
+    <span class="speed-value">{{ controller.speed() }}×</span>
+  </label>
+</div>

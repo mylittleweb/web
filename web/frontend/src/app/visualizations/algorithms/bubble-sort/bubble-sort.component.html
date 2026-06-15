@@ -1,0 +1,36 @@
+<p>
+  <a routerLink="/visualizations/algorithms">← Algorithms</a>
+</p>
+
+<h1>Bubble Sort</h1>
+<p>Repeatedly compare adjacent pairs and swap them if out of order.
+  After each pass the largest remaining element settles into its final position.</p>
+
+<div class="legend">
+  <span class="swatch compare"></span>Comparing
+  <span class="swatch swap"></span>Just swapped
+  <span class="swatch sorted"></span>Sorted
+</div>
+
+<svg class="bars" [attr.viewBox]="viewBox()" preserveAspectRatio="xMidYMax meet">
+  @for (bar of bars(); track bar.id) {
+    <g [attr.transform]="'translate(' + bar.x + ',0)'">
+      <rect
+        [attr.y]="bar.y"
+        [attr.width]="barWidth"
+        [attr.height]="bar.height"
+        [attr.class]="'bar ' + bar.cssClass"
+      ></rect>
+      <text
+        [attr.x]="barWidth / 2"
+        [attr.y]="chartHeight - 4"
+        text-anchor="middle"
+        class="bar-label"
+      >{{ bar.value }}</text>
+    </g>
+  }
+</svg>
+
+<playback-controls [controller]="playback" />
+
+<p class="description">{{ description() }}</p>

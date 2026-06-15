@@ -1,0 +1,42 @@
+<div class="filters">
+  <mat-form-field appearance="outline" class="search-field" subscriptSizing="dynamic">
+    <mat-icon matIconPrefix>search</mat-icon>
+    <input
+      matInput
+      type="search"
+      [placeholder]="searchPlaceholder"
+      [value]="search()"
+      (input)="onSearchInput($event)"
+    />
+    @if (search()) {
+      <button
+        type="button"
+        mat-icon-button
+        matIconSuffix
+        aria-label="Clear search"
+        (click)="clearSearch()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    }
+  </mat-form-field>
+
+  @if (showCount()) {
+    <span class="count">Showing {{ filtered }} of {{ total }}</span>
+  }
+</div>
+
+@for (group of filterGroups; track group.key) {
+  <div class="filter-group">
+    <span class="filter-group-label">{{ group.label }}:</span>
+    <mat-chip-listbox
+      [multiple]="true"
+      [value]="selection()[group.key] ?? []"
+      (change)="onChipChange(group.key, $event)"
+    >
+      @for (option of group.options; track option) {
+        <mat-chip-option [value]="option">{{ option }}</mat-chip-option>
+      }
+    </mat-chip-listbox>
+  </div>
+}

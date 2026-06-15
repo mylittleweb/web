@@ -1,0 +1,84 @@
+<mat-toolbar color="primary" class="nav-header">
+  <div class="nav-header-left">
+    <button
+      type="button"
+      mat-icon-button
+      aria-label="Open navigation menu"
+      [matMenuTriggerFor]="navMenu"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <a routerLink="/" class="nav-brand">
+      <span>My Little Web</span>
+    </a>
+
+    <mat-menu #navMenu="matMenu">
+      @for (section of sections(); track $index; let isFirst = $first) {
+        @if (!isFirst) {
+          <mat-divider></mat-divider>
+        }
+        @if (section.title) {
+          <div class="nav-section-title" mat-menu-item disabled>
+            {{ section.title }}
+          </div>
+        }
+        @for (link of section.items; track link.path) {
+          <a
+            mat-menu-item
+            [routerLink]="link.path"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+          >
+            <mat-icon>{{ link.icon }}</mat-icon>
+            <span>{{ link.label }}</span>
+          </a>
+        }
+      }
+    </mat-menu>
+  </div>
+
+  <div class="nav-header-right">
+    @if (user) {
+      <button
+        type="button"
+        mat-icon-button
+        [matMenuTriggerFor]="userMenu"
+        [attr.aria-label]="'Account menu for ' + user.name"
+      >
+        @if (user.avatarUrl) {
+          <img class="user-avatar" [src]="user.avatarUrl" [alt]="user.name" />
+        } @else {
+          <span class="user-initials">{{ initials(user.name) }}</span>
+        }
+      </button>
+
+      <mat-menu #userMenu="matMenu" xPosition="before">
+        <div class="user-menu-header" mat-menu-item disabled>
+          <div class="user-menu-name">{{ user.name }}</div>
+          @if (user.email) {
+            <div class="user-menu-email">{{ user.email }}</div>
+          }
+        </div>
+        <mat-divider></mat-divider>
+        <button type="button" mat-menu-item (click)="profileClick.emit()">
+          <mat-icon>person</mat-icon>
+          <span>Profile</span>
+        </button>
+        <button type="button" mat-menu-item (click)="settingsClick.emit()">
+          <mat-icon>settings</mat-icon>
+          <span>Settings</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button type="button" mat-menu-item (click)="signOut.emit()">
+          <mat-icon>logout</mat-icon>
+          <span>Sign out</span>
+        </button>
+      </mat-menu>
+    }
+  </div>
+</mat-toolbar>
+
+<main class="nav-content">
+  <ng-content></ng-content>
+</main>

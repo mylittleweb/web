@@ -1,0 +1,17 @@
+@if (loaded(); as cmp) {
+  <ng-container *ngComponentOutlet="cmp"></ng-container>
+} @else if (dataStructure(); as ds) {
+  <p>
+    <a routerLink="/visualizations/data-structures">← Data Structures</a>
+  </p>
+  <h1>{{ ds.name }}</h1>
+  <p>{{ ds.summary }}</p>
+  <p><strong>Category:</strong> {{ ds.category }}</p>
+  <p><em>Visualization coming soon.</em></p>
+} @else {
+  <p>
+    <a routerLink="/visualizations/data-structures">← Data Structures</a>
+  </p>
+  <h1>Not found</h1>
+  <p>No data structure with id "{{ id() }}".</p>
+}
